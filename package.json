@@ -1,0 +1,26 @@
+{
+  "name": "steam-update-tracker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EastArctica/steam-update-tracker.git"
+  },
+  "author": "East_Arctica",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EastArctica/steam-update-tracker/issues"
+  },
+  "homepage": "https://github.com/EastArctica/steam-update-tracker#readme",
+  "description": "",
+  "dependencies": {
+    "discord.js": "^14.11.0",
+    "fuse.js": "^6.6.2",
+    "mongoose": "^7.3.0",
+    "steam-user": "^4.28.6"
+  }
+}

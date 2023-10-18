@@ -1,0 +1,5 @@
+{
+    "token": "OTcyMjY5OTExOTYxMzc0NzIw.GY-g8e.aB3CdJmcPyfdpys9tv3fNSw5HqHodcTxSz7ME8",
+    "clientId": "972269911961374720",
+    "MONGODB_URI": "mongodb://192.168.1.20:27017/steamUpdateNotifier"
+}

@@ -1,0 +1,5 @@
+{
+    "token": "discord-bot-token-here",
+    "clientId": "discord-bot-client-id-here",
+    "MONGODB_URI": "mongodb-connection-uri-here"
+}
