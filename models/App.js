@@ -1,27 +1,30 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const BranchSchema = new mongoose.Schema({
-  buildid: String,
-  timeupdated: String,
-  pwdrequired: Boolean,
-  description: String
-}, {_id : false});
+const BranchSchema = new mongoose.Schema(
+  {
+    buildid: String,
+    timeupdated: String,
+    pwdrequired: Boolean,
+    description: String,
+  },
+  { _id: false }
+);
 
 const AppSchema = new mongoose.Schema({
   id: Number,
   name: String,
   branches: {
     type: Map,
-    of: BranchSchema
-  }
+    of: BranchSchema,
+  },
 });
 
 const singleton = (() => {
   let instance;
 
   function createInstance() {
-    instance = mongoose.model('App', AppSchema, 'apps');
-    
+    instance = mongoose.model("App", AppSchema, "apps");
+
     return instance;
   }
 
@@ -31,7 +34,7 @@ const singleton = (() => {
      */
     getInstance() {
       return instance || createInstance();
-    }
+    },
   };
 })();
 

@@ -1,4 +1,4 @@
-const SteamUser = require('steam-user');
+const SteamUser = require("steam-user");
 
 const singleton = (() => {
   let instance;
@@ -16,7 +16,7 @@ const singleton = (() => {
      */
     getInstance() {
       return instance || createInstance();
-    }
+    },
   };
 })();
 
