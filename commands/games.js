@@ -234,11 +234,11 @@ module.exports = {
       .setCustomId("branch-select-options")
       .setPlaceholder("Select a branch to add.")
       .addOptions(
-        ...[...app.branches.keys()].map((branch) =>
+        ...[...app.branches.keys()].map((branchB64) =>
           new StringSelectMenuOptionBuilder()
-            .setLabel(branch)
-            .setValue(`${app.id}-${branch}`)
-            .setDefault(channelApp.branches.includes(branch))
+            .setLabel(atob(branchB64))
+            .setValue(`${app.id}-${atob(branchB64)}`)
+            .setDefault(channelApp.branches.includes(atob(branchB64)))
         )
       )
       .setMinValues(1)

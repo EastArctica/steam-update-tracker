@@ -1,22 +1,24 @@
 const steamUser = require("./steamUser");
 const App = require("../models/App");
+const { atob, btoa } = require("./util");
 
 async function updateApps() {
   const appList = await App.find({});
-  let result = await steamUser.getProductInfo(
+  let allProducts = await steamUser.getProductInfo(
     appList.map((app) => app.id),
     [],
     true
   );
 
   let appUpdates = {};
-  for (const appID in result.apps) {
-    const steamApp = result.apps[appID];
+  for (const appID in allProducts.apps) {
+    const steamApp = allProducts.apps[appID];
     const dbApp = appList.find((appListApp) => appListApp.id === Number(appID));
 
-    let hasUpdated = false;
+    let appHasUpdates = false;
     let appUpdate = {
       name: steamApp.appinfo.common.name,
+      // branches is a list of the branches that have updated
       branches: {},
     };
 
@@ -26,36 +28,37 @@ async function updateApps() {
     }
 
     // TODO: If a branch is removed, that becomes an issue...
-    console.log(steamApp.appinfo.depots.branches);
-    for (const branch in steamApp.appinfo.depots.branches) {
-      // Check if branch is in dbApp
-      if (!dbApp.branches.get(branch)) {
-        dbApp.branches.set(branch, {});
+    for (const branchName in steamApp.appinfo.depots.branches) {
+      // If this branch hasn't been seen before, add a default object for the branch.
+      if (!dbApp.branches.get(btoa(branchName))) {
+        dbApp.branches.set(btoa(branchName), {});
       }
 
-      let branchInfo = steamApp.appinfo.depots.branches[branch];
+      let branch = steamApp.appinfo.depots.branches[branchName];
       let dbBranch = {
-        buildid: branchInfo.buildid,
-        timeupdated: branchInfo.timeupdated,
-        pwdrequired: branchInfo.pwdrequired == "1",
-        description: branchInfo.description || "",
+        buildid: branch.buildid,
+        timeupdated: branch.timeupdated,
+        pwdrequired: branch.pwdrequired == "1",
+        description: branch.description || "",
       };
 
-      if (branchInfo.timeupdated !== dbApp.branches.get(branch).timeupdated) {
-        hasUpdated = true;
-        appUpdate.branches[branch] = dbBranch;
+      if (
+        branch.timeupdated !== dbApp.branches.get(btoa(branchName)).timeupdated
+      ) {
+        appHasUpdates = true;
+        appUpdate.branches[branchName] = dbBranch;
       }
 
-      dbApp.branches.set(branch, dbBranch);
+      dbApp.branches.set(btoa(branchName), dbBranch);
     }
 
     // Update the app's name if it's changed
     if (steamApp.appinfo.common.name !== dbApp.name) {
-      hasUpdated = true;
+      appHasUpdates = true;
       dbApp.name = steamApp.appinfo.common.name;
     }
 
-    if (hasUpdated) {
+    if (appHasUpdates) {
       appUpdates[appID] = appUpdate;
     }
 

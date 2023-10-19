@@ -1,5 +1,3 @@
-const Fuse = require("fuse.js");
-
 class SteamUtil {
   constructor() {
     this.appList = new Map();

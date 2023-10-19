@@ -7,6 +7,7 @@ const {
 const steamUtil = require("../services/steamUtil");
 const Guild = require("../models/Guild");
 const App = require("../models/App");
+const { atob } = require("../services/util");
 
 module.exports = async (client, interaction) => {
   if (interaction.isChatInputCommand()) {
@@ -150,11 +151,11 @@ module.exports = async (client, interaction) => {
           .setCustomId("branch-select-options")
           .setPlaceholder("Select a branch to add.")
           .addOptions(
-            ...[...app.branches.keys()].map((branch) =>
+            ...[...app.branches.keys()].map((branchB64) =>
               new StringSelectMenuOptionBuilder()
-                .setLabel(branch)
-                .setValue(`${app.id}-${branch}`)
-                .setDefault(channelApp.branches.includes(branch))
+                .setLabel(atob(branchB64))
+                .setValue(`${app.id}-${atob(branchB64)}`)
+                .setDefault(channelApp.branches.includes(branchB64))
             )
           )
           .setMinValues(1)
