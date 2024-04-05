@@ -134,8 +134,7 @@ module.exports = {
     }
 
     // Remove the game from the guild
-    // TODO: I think there's a better way to do this
-    channel.apps = channel.apps.filter((app) => app !== removedGame);
+    channel.apps.splice(channel.apps.indexOf(removedGame), 1);
 
     await guild.save();
     // TODO: Update to embed :upside_down:
