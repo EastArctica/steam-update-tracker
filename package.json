@@ -2,7 +2,6 @@
   "name": "steam-update-tracker",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,9 +17,10 @@
   "homepage": "https://github.com/EastArctica/steam-update-tracker#readme",
   "description": "",
   "dependencies": {
-    "discord.js": "^14.11.0",
-    "fuse.js": "^6.6.2",
-    "mongoose": "^7.3.0",
-    "steam-user": "^4.28.6"
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5",
+    "fuse.js": "^7.0.0",
+    "mongoose": "^8.3.0",
+    "steam-user": "^5.0.8"
   }
 }

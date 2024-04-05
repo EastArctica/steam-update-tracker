@@ -1,13 +1,11 @@
 const mongoose = require("mongoose");
-const { MONGODB_URI } = require("../config");
 
 const singleton = (() => {
   let instance;
 
   function createInstance() {
-    mongoose.connect(MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    mongoose.connect(process.env.MONGO_URI, {
+      authSource: "admin"
     });
     instance = mongoose.connection;
 
